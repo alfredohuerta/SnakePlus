@@ -14,6 +14,7 @@ from turtle import hideturtle, tracer, listen, onkey, done
 from random import randrange
 from freegames import square, vector
 
+wall= vector(0, 0)
 food = vector(0, 0)
 snake = [vector(10, 0)]
 aim = vector(0, -10)
@@ -24,7 +25,7 @@ def change(x, y):
     aim.x = x
     aim.y = y
 
-
+"controlador que rtermina el juego si la serpiente sale del mapa"
 def inside(head):
     "Return True if head inside boundaries."
     return -200 < head.x < 190 and -200 < head.y < 190
@@ -37,6 +38,7 @@ def move():
     "sitio a dónde apunta la cabeza."
     head.move(aim)
 
+    "controlador de cuando la serpiente muere"
     if not inside(head) or head in snake:
         square(head.x, head.y, 9, 'red')
         update()
@@ -44,10 +46,16 @@ def move():
 
     snake.append(head)
 
+    "controlador de cuando la serpiente come"
     if head == food:
         print('Snake:', len(snake))
         food.x = randrange(-15, 15) * 10
         food.y = randrange(-15, 15) * 10
+        if head == wall:
+            square(head.x, head.y, 9, 'red')
+            wall.x = randrange(-15, 15) * 10
+            wall.y = randrange(-15, 15) * 10
+            return
     else:
         snake.pop(0)
 
@@ -56,16 +64,20 @@ def move():
     for body in snake:
         square(body.x, body.y, 9, 'black')
 
+    "Comida"
     square(food.x, food.y, 9, 'green')
+    square(wall.x, wall.y, 9, 'blue')
     update()
     "Move snake forward one segment."
     ontimer(move, 100)
 
 
+"especificaciones del mapa"
 setup(420, 420, 370, 0)
 hideturtle()
 tracer(False)
 listen()
+"controles"
 onkey(lambda: change(10, 0), 'Right')
 onkey(lambda: change(-10, 0), 'Left')
 onkey(lambda: change(0, 10), 'Up')
