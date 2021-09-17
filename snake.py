@@ -64,10 +64,10 @@ def move():
 
     "Comida"
     square(food.x, food.y, 9, 'green')
+    square(wall.x, wall.y, 9, 'blue')
     update()
     "Move snake forward one segment."
     ontimer(move, 100)
-    square(wall.x, wall.y, 9, 'blue')
 
 
 "especificaciones del mapa"
