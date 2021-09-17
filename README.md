@@ -1,5 +1,5 @@
 # SnakePlus
-## Proyecto de Semana Tec Herramientas computacionales: el arte de la programación\
+## Proyecto de Semana Tec Herramientas computacionales: el arte de la programación
 Integrantes: \
 Erick Alfredo García Huerta -> A01708119\
 Diego Iturbe Bravo -> A01708272\
