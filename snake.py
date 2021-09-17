@@ -14,7 +14,7 @@ from turtle import hideturtle, tracer, listen, onkey, done
 from random import randrange
 from freegames import square, vector
 
-wall= vector(0, 0)
+wall= vector(50, 20)
 food = vector(0, 0)
 snake = [vector(10, 0)]
 aim = vector(0, -10)
@@ -39,7 +39,7 @@ def move():
     head.move(aim)
 
     "controlador de cuando la serpiente muere"
-    if not inside(head) or head in snake:
+    if not inside(head) or head in snake or head == wall:
         square(head.x, head.y, 9, 'red')
         update()
         return
@@ -51,11 +51,9 @@ def move():
         print('Snake:', len(snake))
         food.x = randrange(-15, 15) * 10
         food.y = randrange(-15, 15) * 10
-        if head == wall:
-            square(head.x, head.y, 9, 'red')
-            wall.x = randrange(-15, 15) * 10
-            wall.y = randrange(-15, 15) * 10
-            return
+        wall.x = randrange(-15, 15) * 10
+        wall.y = randrange(-15, 15) * 10
+        
     else:
         snake.pop(0)
 
@@ -66,10 +64,10 @@ def move():
 
     "Comida"
     square(food.x, food.y, 9, 'green')
-    square(wall.x, wall.y, 9, 'blue')
     update()
     "Move snake forward one segment."
     ontimer(move, 100)
+    square(wall.x, wall.y, 9, 'blue')
 
 
 "especificaciones del mapa"
