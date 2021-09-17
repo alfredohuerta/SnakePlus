@@ -13,12 +13,23 @@ from turtle import update, clear, ontimer, setup
 from turtle import hideturtle, tracer, listen, onkey, done
 from random import randrange
 from freegames import square, vector
+from playsound import playsound
+from threading import Thread
+
 
 wall= vector(50, 20)
 food = vector(0, 0)
 snake = [vector(10, 0)]
 aim = vector(0, -10)
 
+def music_func():
+    playsound('FOOD.mp3')
+    # Definir función que llama audio
+def callfood():
+    music = Thread(target=music_func)
+    music.daemon = True
+    # Iniciar musica
+    music.start()
 
 def change(x, y):
     "Change snake direction."
@@ -53,6 +64,7 @@ def move():
         food.y = randrange(-15, 15) * 10
         wall.x = randrange(-15, 15) * 10
         wall.y = randrange(-15, 15) * 10
+        callfood()
         
     else:
         snake.pop(0)
